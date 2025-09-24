@@ -1,0 +1,8 @@
+.heading{
+    color: rgba(238, 233, 233, 0.2);
+    margin: 3.2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.4rem;
+}
