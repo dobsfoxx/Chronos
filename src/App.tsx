@@ -4,6 +4,7 @@ import Container from "./components/Container/Container";
 import CountDown from "./components/CountDown/CountDown";
 import Cycles from "./components/Cycles/Cycles";
 import DefaultButton from "./components/DefaultButton/DefaultButton";
+import Footer from "./components/Footer/Footer";
 import Input from "./components/Input/Input";
 import Logo from "./components/Logo/Logo";
 import Menu from "./components/Menu/Menu";
@@ -32,7 +33,7 @@ export default function App() {
                     <Input 
                     type="text" 
                     id="meuInput" 
-                    labelText="" 
+                    labelText="task" 
                     className="input" 
                     placeholder="Digite algo"/>
                 </div>
@@ -49,8 +50,11 @@ export default function App() {
                    <DefaultButton icon={<PlayCircleIcon />} color="red"/>
                 </div>
 
-
                </form>
+            </Container> 
+
+            <Container>
+               <Footer />
             </Container>  
         </>
     )
