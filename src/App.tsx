@@ -1,11 +1,19 @@
 
-import Home from "./pages/Home/Home";
+import Home from './pages/Home/Home';
+
+import './styles/globals.css';
+import './styles/theme.css';
 
 
-import './styles/globals.css'
-import './styles/theme.css'
+import TaskContextProvider from './contexts/TaskContext/TaskContextProvider';
+
 
 export default function App() {
-    return(<Home />)
-    
+
+
+  return (
+  <TaskContextProvider >
+    <Home />
+  </TaskContextProvider>
+  );
 }

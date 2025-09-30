@@ -4,7 +4,10 @@ import CountDown from "../../components/CountDown/CountDown";
 import MainForm from "../../components/MainForm/MainForm";
 
 
-export default function Home() {
+
+export default function Home(){
+  
+
 	return( 
        <MainTemplate  >
          
@@ -13,7 +16,7 @@ export default function Home() {
         </Container> 
 
          <Container>
-            <MainForm />
+            <MainForm  />
         </Container> 
 
        </MainTemplate>

@@ -3,18 +3,32 @@ import Cycles from "../Cycles/Cycles"
 import Input from "../Input/Input"
 import DefaultButton from "../DefaultButton/DefaultButton"
 import { PlayCircleIcon } from "lucide-react"
+import { useState } from "react"
+
+
 
 export default function MainForm(){
-    return(
+   const [taskName, setTaskName] = useState('')
+   
+
+   function handleCreateNewTask(e: React.FormEvent<HTMLFormElement>){
+      e.preventDefault()
+      console.log('Deu certo')
+
+   }
+   return(
+
         <Container>
-               <form action="" className="form">
+               <form  onSubmit={handleCreateNewTask} action="" className="form">
                 <div className="formRow">
                     <Input 
                     type="text" 
                     id="meuInput" 
                     labelText="task" 
                     className="input" 
-                    placeholder="Digite algo"/>
+                    placeholder="Digite algo"
+                    value={taskName}
+                    onChange={e=> setTaskName(e.target.value)}/>
                 </div>
                 
                 <div className="formRow">
