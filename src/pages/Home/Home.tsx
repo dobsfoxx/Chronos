@@ -16,7 +16,7 @@ export default function Home(){
         </Container> 
 
          <Container>
-            <MainForm  />
+            <MainForm />
         </Container> 
 
        </MainTemplate>
