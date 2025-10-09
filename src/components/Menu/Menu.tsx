@@ -27,7 +27,6 @@ export default function Menu(){
     }
     
     useEffect(() => {
-        console.log('Theme mudou', theme, Date.now());
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme)
     }, [theme]);

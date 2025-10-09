@@ -2,28 +2,31 @@ import Container from '../Container/Container';
 import Cycles from '../Cycles/Cycles';
 import Input from '../Input/Input';
 import DefaultButton from '../DefaultButton/DefaultButton';
-import { PlayCircleIcon } from 'lucide-react';
+import { PlayCircleIcon, StopCircleIcon } from 'lucide-react';
 import { useRef } from 'react';
 import type { TaskModel } from '../../models/TaskModel';
 import { useTaskContext } from '../../contexts/TaskContext/UseTaksContext';
 import { getNextCycle } from './../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
-import { formatedSecondsToMinutes } from '../../utils/formatSecondsToMinutes';
+import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
+import Tips from '../Tips/Tips';
+
+
 
 export default function MainForm() {
   const taskNameInput = useRef<HTMLInputElement>(null);
-  const { state, setState } = useTaskContext();
+  const { state, dispatch } = useTaskContext();
+  
   const nextCycle = getNextCycle(state.currentCycle);
-  const nextCycleType = getNextCycleType(nextCycle)
+  const nextCycleType = getNextCycleType(nextCycle);
+  
 
   function handleCreateNewTask(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (taskNameInput.current === null) return;
 
-    const taskName = taskNameInput.current.value;
-
-    console.log(taskName);
+    const taskName = taskNameInput.current.value.trim();
 
     if (!taskName) {
       console.log('Input vazio');
@@ -40,20 +43,16 @@ export default function MainForm() {
       task: taskName,
       type: nextCycleType,
     };
-    const secondsRemaining = newTask.duration * 60;
 
-    setState(prevState => {
-      return {
-        ...prevState,
-        activeTask: newTask,
-        currentCycle: nextCycle,
-        secondsRemaining,
-        formattedSecondsRemaining: formatedSecondsToMinutes(secondsRemaining),
-        tasks: [...prevState.tasks, newTask],
-        config: { ...prevState.config },
-      };
-    });
+    dispatch({ type: TaskActionTypes.START_TASK, payload: newTask });
+
+    
   }
+
+  function handleInterruptTask() {
+    dispatch({ type: TaskActionTypes.INTERRUPT_TASK });
+  }
+
   return (
     <Container>
       <form onSubmit={handleCreateNewTask} action='' className='form'>
@@ -70,17 +69,33 @@ export default function MainForm() {
         </div>
 
         <div className='formRow'>
-          <p>Próximo intervalo é de 25 minutos</p>
+          <Tips />
         </div>
-         {state.currentCycle > 0 && (
-      
-        <div className='formRow'>
-          <Cycles />
-        </div>
+        {state.currentCycle > 0 && (
+          <div className='formRow'>
+            <Cycles />
+          </div>
         )}
 
         <div className='formRow'>
-          <DefaultButton icon={<PlayCircleIcon />} color='red' />
+          {!state.activeTask ? (
+            <DefaultButton
+              icon={<PlayCircleIcon />}
+              type='submit'
+              aria-label='Iniciar tarefa'
+              title='Iniciar nova Tarefa'
+             
+            />
+          ) : (
+            <DefaultButton
+              type='button'
+              aria-label='Parar Tarefa atual'
+              title='Parar Tarefa atual'
+              icon={<StopCircleIcon />}
+              color='red'
+              onClick={handleInterruptTask}
+            />
+          )}
         </div>
       </form>
     </Container>
