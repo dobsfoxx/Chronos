@@ -78,15 +78,17 @@ export default function MainForm() {
         )}
 
         <div className='formRow'>
-          {!state.activeTask ? (
+          {!state.activeTask && (
             <DefaultButton
               icon={<PlayCircleIcon />}
               type='submit'
               aria-label='Iniciar tarefa'
               title='Iniciar nova Tarefa'
+              color='green'
              
             />
-          ) : (
+          )}
+          {!!state.activeTask && (
             <DefaultButton
               type='button'
               aria-label='Parar Tarefa atual'
